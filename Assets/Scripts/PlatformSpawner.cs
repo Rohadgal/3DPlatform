@@ -9,6 +9,8 @@ public class PlatformSpawner : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     // [SerializeField] GameObject enemyPrefab;
 
+    public static PlatformSpawner s_instance;
+
     Queue<GameObject> platformPool;
     bool canInstantiate = true;
     float lastZPosition;
@@ -18,6 +20,7 @@ public class PlatformSpawner : MonoBehaviour
 
     void Start()
     {
+        s_instance = this;
         platformPool = new Queue<GameObject>();
         if( platformPrefab != null ) {
             lastZPosition = -zDisplacementValue;
@@ -66,6 +69,10 @@ public class PlatformSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    public int getPoolLimit () {
+        return objectPoolLimit;
     }
 
     
