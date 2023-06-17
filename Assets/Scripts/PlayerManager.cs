@@ -66,6 +66,20 @@ public class PlayerManager : MonoBehaviour
     public PlayerState GetState() { return playerState; }
 
     public Animator getAnimator() { return animator; }
+
+    private bool IsDead() {
+        if (PlayerManager.instance.GetState() != PlayerState.Dead) {
+            return false;
+        }
+        //Debug.LogWarning("You died");
+        StartCoroutine(DestroyPlayer());
+        return true;
+    }
+
+    IEnumerator DestroyPlayer() {
+        yield return new WaitForSeconds(2.5f);
+        Destroy(gameObject);
+    }
 }
 
 public enum PlayerState {

@@ -9,6 +9,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator destroyEnemey() {
         yield return new WaitForSeconds(LevelManager.s_instance.getTime() * (PlatformSpawner.s_instance.getPoolLimit() +1) );  // El numero que escala el tiempo es equivalente a PoolLimit + 1.
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

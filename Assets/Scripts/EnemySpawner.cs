@@ -1,18 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private void Start() {
+        StartCoroutine(destroyEnemey());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    IEnumerator destroyEnemey() {
+        yield return new WaitForSeconds(LevelManager.s_instance.getTime() * (PlatformSpawner.s_instance.getPoolLimit() + 1));  // El numero que escala el tiempo es equivalente a PoolLimit + 1.
+        gameObject.SetActive(false);
     }
 }

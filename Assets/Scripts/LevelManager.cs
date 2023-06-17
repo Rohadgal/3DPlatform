@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager s_instance;
+    LevelState m_levelState;
 
     private float time = 2.2f;
     private void Awake() {
@@ -14,6 +13,20 @@ public class LevelManager : MonoBehaviour
         } else {
             s_instance = this;
         }
+    }
+
+    private void Update() {
+        if (m_levelState == LevelState.LevelFinished) {
+            GameManager.s_instance.changeScene();
+            Debug.Log("LLegamos aca");
+        }
+        if (m_levelState == LevelState.GameOver) {
+            GameManager.s_instance.changeGameSate(GameState.GameOver);
+        }
+    }
+
+    public void changeLevelState(LevelState state) {
+        m_levelState = state;
     }
 
     public float getTime() {
@@ -34,4 +47,11 @@ public class LevelManager : MonoBehaviour
     //        time -= 0.2f;
     //    }
     //}
+}
+
+public enum LevelState {
+    None,
+    Continue,
+    LevelFinished,
+    GameOver
 }

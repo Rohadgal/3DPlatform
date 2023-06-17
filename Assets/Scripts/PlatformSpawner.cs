@@ -32,6 +32,9 @@ public class PlatformSpawner : MonoBehaviour
         int randEnemySpawn;
 
         while (GameManager.s_instance.getGameState() != GameState.GameOver) {
+            if (GameManager.s_instance.getGameState() == GameState.GameFinished) {
+                break;
+            }
             float rndX = Random.Range(minX, maxX);
             Vector3 newPos = new Vector3(rndX, 2, lastZPosition + zDisplacementValue);  // creamos la nueva posición
             Debug.Log("creamos newPos: " + newPos);
