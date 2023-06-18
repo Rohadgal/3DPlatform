@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     #region Serialized Field
     [SerializeField] Transform footPosition;
     [SerializeField] float footRadius, jumpForce, speed;
+
     #endregion
 
     private void Start() {
@@ -43,6 +44,24 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("IS grounded: " + isGrounded);
         }
         //Debug.Log("IS grounded: " + isGrounded);
+
+        //float mouseHorizontal = Input.GetAxis("Mouse X");
+        //playerShoulders.rotation *= Quaternion.AngleAxis(mouseHorizontal * rotationSensitivity, Vector3.up);
+        //transform.rotation = Quaternion.Euler(0, playerShoulders.rotation.eulerAngles.y, 0);
+        //playerShoulders.localEulerAngles = Vector3.zero;
+        
+
+
+
+
+        //float mouseX = Input.GetAxis("Mouse X") * rotationSensitivity;
+        //float mouseY = Input.GetAxis("Mouse Y") * rotationSensitivity;
+        //playerShoulders.Rotate(Vector3.up, mouseX);
+
+            //rotationHorizontal -= mouseY;
+            //rotationHorizontal = Mathf.Clamp(rotationHorizontal, -90f, 90f);
+            //transform.localRotation = Quaternion.Euler(rotationHorizontal, 0f, 0f);
+
     }
 
     void moveAround() {
