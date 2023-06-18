@@ -114,8 +114,7 @@ public class GameManager : MonoBehaviour
 
     void gameOver() {
         if (canvas != null) {
-            canvas.SetActive(true);
-            gameOverUI.SetActive(true);
+            StartCoroutine(slowDownGameOverCanvas());
         }
     }
 
@@ -131,6 +130,12 @@ public class GameManager : MonoBehaviour
         //    //StartCoroutine(openCredits());
         //    Debug.LogError("YAAAA");
         //}
+    }
+
+    IEnumerator slowDownGameOverCanvas() {
+        yield return new WaitForSeconds(4f);
+        canvas.SetActive(true);
+        gameOverUI.SetActive(true);
     }
 
     public void exitGame() {
