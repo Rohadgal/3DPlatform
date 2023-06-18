@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update() {
         if (playerState == PlayerState.Dead) {
-            //evelManager.s_instance.changeLevelState(LevelState.GameOver);
+            LevelManager.s_instance.changeLevelState(LevelState.GameOver);
         }
     }
     public void ChangePlayerState(PlayerState newState) {
