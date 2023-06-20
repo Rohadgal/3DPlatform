@@ -119,7 +119,7 @@ public class PlatformSpawner : MonoBehaviour
 
                 randEnemySpawn = Random.Range(1, 6);
                 if (randEnemySpawn < 3) {
-                    Instantiate(enemyPrefab, newPos, Quaternion.identity);
+                    Instantiate(enemyPrefab, tempGO.transform.position, Quaternion.identity);
                     enemyPrefab.SetActive(true);
                 }
             }
