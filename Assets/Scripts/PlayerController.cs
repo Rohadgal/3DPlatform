@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody rgbd;
     bool isGrounded;
-    float yInput;
-    float xInput;
+    float verticalInput;
+    float horizontalInput;
     #endregion
 
     #region Public
@@ -45,39 +45,33 @@ public class PlayerController : MonoBehaviour
         }
         //Debug.Log("IS grounded: " + isGrounded);
 
-        //float mouseHorizontal = Input.GetAxis("Mouse X");
-        //playerShoulders.rotation *= Quaternion.AngleAxis(mouseHorizontal * rotationSensitivity, Vector3.up);
-        //transform.rotation = Quaternion.Euler(0, playerShoulders.rotation.eulerAngles.y, 0);
-        //playerShoulders.localEulerAngles = Vector3.zero;
-        
-
-
-
-
-        //float mouseX = Input.GetAxis("Mouse X") * rotationSensitivity;
-        //float mouseY = Input.GetAxis("Mouse Y") * rotationSensitivity;
-        //playerShoulders.Rotate(Vector3.up, mouseX);
-
-            //rotationHorizontal -= mouseY;
-            //rotationHorizontal = Mathf.Clamp(rotationHorizontal, -90f, 90f);
-            //transform.localRotation = Quaternion.Euler(rotationHorizontal, 0f, 0f);
+       
 
     }
 
     void moveAround() {
         
-        xInput = Input.GetAxis("Horizontal");
-        yInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
-        PlayerManager.instance.getAnimator().SetFloat("xMove", xInput);
-        PlayerManager.instance.getAnimator().SetFloat("yMove", yInput);
+        PlayerManager.instance.getAnimator().SetFloat("xMove", horizontalInput);
+        PlayerManager.instance.getAnimator().SetFloat("yMove", verticalInput);
 
-        rgbd.velocity = new Vector3(xInput * speed, rgbd.velocity.y, yInput * speed);
+        Vector3 movement = new Vector3(horizontalInput, 0, verticalInput);
+        
+        movement.Normalize();
+
+        Vector3 moveInWorld = transform.TransformDirection(movement);
+        Vector3 velocity = moveInWorld * speed;
+        velocity.y = rgbd.velocity.y;
+        rgbd.velocity = velocity;
+
+        //rgbd.velocity = new Vector3(horizontalInput * speed, rgbd.velocity.y, verticalInput * speed);
 
         if (isGrounded) {
-            if (xInput != 0 || yInput != 0) {
+            if (horizontalInput != 0 || verticalInput != 0) {
                 PlayerManager.instance.ChangePlayerState(PlayerState.Running);
-            } else if (xInput == 0 && yInput == 0) {
+            } else if (horizontalInput == 0 && verticalInput == 0) {
                 PlayerManager.instance.ChangePlayerState(PlayerState.Idle);
             }
         }

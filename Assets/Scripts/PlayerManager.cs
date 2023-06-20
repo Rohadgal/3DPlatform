@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    public PlayerState GetState() { return playerState; }
+    public PlayerState GetState() { return playerState; } 
 
     public Animator getAnimator() { return animator; }
 

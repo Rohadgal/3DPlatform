@@ -1,9 +1,10 @@
-using UnityEngine;
+    using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager s_instance;
     LevelState m_levelState;
+    int platformSpawnSection = 0;
 
     private float time = 2.2f;
     private void Awake() {
@@ -47,6 +48,14 @@ public class LevelManager : MonoBehaviour
     //        time -= 0.2f;
     //    }
     //}
+    public void setSpawnerSection(int t_section)
+    {
+        platformSpawnSection = t_section;
+    }
+
+    public int getSpawnSection() {
+        return platformSpawnSection;
+    }
 }
 
 public enum LevelState {
