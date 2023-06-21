@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     private void Awake() {
         if (canvas != null && SceneManager.GetActiveScene().buildIndex != mainMenuScene) {
             canvas.SetActive(false);
+            winUI.SetActive(false);
+            gameOverUI.SetActive(false);
+            creditsUI.SetActive(false);
             DontDestroyOnLoad(gameObject);
         }
         if (FindObjectOfType<GameManager>() != null &&
@@ -54,7 +57,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        //Debug.Log("Hasta aca llegó");
+        //Debug.Log("Hasta aca lleg?");
         if (levelIndex < SceneManager.sceneCountInBuildSettings - 1) {
             //Debug.Log("eeeeee");
             levelIndex++;
