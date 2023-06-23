@@ -38,13 +38,10 @@ public class PlatformSpawner : MonoBehaviour
         int randEnemySpawn;
         float yPos = 2;
         
-
         while (GameManager.s_instance.getGameState() != GameState.GameOver) {
             if (GameManager.s_instance.getGameState() == GameState.GameFinished) {
                 break;
             }
-
-
 
             rndX = Random.Range(min, max);
             newPos = new Vector3(rndX, yPos, lastZPosition + DisplacementValue);  // creamos la nueva posici?n
@@ -88,7 +85,6 @@ public class PlatformSpawner : MonoBehaviour
 
                 switch (LevelManager.s_instance.getSpawnSection())
                 {
-                    
                     case 0:
                         tempGO.transform.position = new Vector3(rndX, newPos.y, newPos.z);
                         lastZPosition = tempGO.transform.position.z;
@@ -103,19 +99,11 @@ public class PlatformSpawner : MonoBehaviour
                         throw new UnityException("Invalid Game State");
                 }
 
-
-
-                
-
-                
-                
-
                 Debug.Log("esta posici?n ahora: " + tempGO.transform.position);
                 //tempGO.SetActive(true);
                 platformPool.Enqueue(tempGO);
 
                 lastPosition = tempGO.transform.position;
-
 
                 randEnemySpawn = Random.Range(1, 6);
                 if (randEnemySpawn < 3) {

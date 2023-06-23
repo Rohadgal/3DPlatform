@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
     private void Awake() {
         if (canvas != null && SceneManager.GetActiveScene().buildIndex != mainMenuScene) {
             canvas.SetActive(false);
-            winUI.SetActive(false);
-            gameOverUI.SetActive(false);
-            creditsUI.SetActive(false);
+            //winUI.SetActive(false);
+            //gameOverUI.SetActive(false);
+            //creditsUI.SetActive(false);
             DontDestroyOnLoad(gameObject);
         }
         if (FindObjectOfType<GameManager>() != null &&
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         s_instance = this;
         m_gameState = GameState.None;
         
@@ -137,8 +137,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator slowDownGameOverCanvas() {
         yield return new WaitForSeconds(4f);
-        canvas.SetActive(true);
-        gameOverUI.SetActive(true);
+        if( canvas != null )
+        {
+            canvas.SetActive(true);
+            gameOverUI.SetActive(true);
+        }
+        
     }
 
     public void exitGame() {

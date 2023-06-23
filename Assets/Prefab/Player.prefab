@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 1042500254247787937}
   - component: {fileID: 1042500254247787938}
   - component: {fileID: 1042500254247787936}
+  - component: {fileID: 1829659455}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -592,7 +593,7 @@ MonoBehaviour:
     m_Bits: 64
   footPosition: {fileID: 195587333433157843}
   footRadius: 0.52
-  jumpForce: 9
+  jumpForce: 11
   speed: 7
 --- !u!136 &1042500254247787936
 CapsuleCollider:
@@ -608,6 +609,20 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.45670605, z: 0}
+--- !u!114 &1829659455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042500254247787941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d665a851be41745588a2bedbd384631e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 4
+  shoulders: {fileID: 195587333694285055}
 --- !u!1 &1162963220496897817
 GameObject:
   m_ObjectHideFlags: 0

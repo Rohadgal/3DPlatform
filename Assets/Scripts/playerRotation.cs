@@ -11,9 +11,9 @@ public class playerRotation : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X");
         shoulders.rotation *= Quaternion.AngleAxis(mouseX * rotationSpeed, Vector3.up);
-        if(PlayerManager.instance.GetState() != PlayerState.Idle) {
+        //if(PlayerManager.instance.GetState() != PlayerState.Idle) {
             transform.rotation = Quaternion.Euler(0, shoulders.rotation.eulerAngles.y, 0);
             shoulders.localEulerAngles = Vector3.zero;
-        }
+        //}
     }
 }

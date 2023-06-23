@@ -12,13 +12,11 @@ public class PlayerController : MonoBehaviour
 
     #region Public
     public LayerMask whatIsGround;
-
     #endregion
 
     #region Serialized Field
     [SerializeField] Transform footPosition;
     [SerializeField] float footRadius, jumpForce, speed;
-
     #endregion
 
     private void Start() {
@@ -44,13 +42,9 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("IS grounded: " + isGrounded);
         }
         //Debug.Log("IS grounded: " + isGrounded);
-
-       
-
     }
 
     void moveAround() {
-        
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
