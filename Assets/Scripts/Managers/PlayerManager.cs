@@ -1,33 +1,42 @@
 using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    Animator animator;
     public static PlayerManager instance;
+    Animator animator;
     PlayerState playerState;
+    public GameObject mainCamera;
+    public Transform spawnPoint;
+    public Transform playerShouders;
 
     private void Awake() {
+        animator = GetComponent<Animator>();
+       if (FindObjectOfType<PlayerManager>() != null &&
+            FindObjectOfType<PlayerManager>().gameObject != gameObject)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
         instance = this;
-        playerState = PlayerState.None;
     }
     void Start()
-    { 
-        animator = GetComponent<Animator>();
+    {
+        playerState = PlayerState.None;
     }
 
     private void Update() {
         if (playerState == PlayerState.Dead) {
             LevelManager.s_instance.changeLevelState(LevelState.GameOver);
         }
+        Debug.Log("State: " + playerState);
     }
     public void ChangePlayerState(PlayerState newState) {
         if (playerState == newState) {
-
             return;
         }
-
         resetAnimatorParameters();
 
         playerState = newState;
@@ -51,7 +60,6 @@ public class PlayerManager : MonoBehaviour
                 break;
             case PlayerState.Dead:
                 animator.SetBool("isDead", true);
-
                 break;
             default: break;
         }
@@ -79,6 +87,15 @@ public class PlayerManager : MonoBehaviour
     IEnumerator DestroyPlayer() {
         yield return new WaitForSeconds(2.5f);
         Destroy(gameObject);
+    }
+    public void respawn()
+    {
+        gameObject.transform.position = spawnPoint.position;
+    }
+
+    public void assignCamera()
+    {
+        mainCamera.GetComponent<CinemachineVirtualCamera>().Follow = transform;
     }
 }
 

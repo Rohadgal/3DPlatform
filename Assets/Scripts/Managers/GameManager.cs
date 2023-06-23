@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     #region Public
     public static GameManager s_instance;
+    public string currentLevel, nextLevel;
     #endregion
 
     #region Private
@@ -20,20 +21,24 @@ public class GameManager : MonoBehaviour
     private void Awake() {
         if (canvas != null && SceneManager.GetActiveScene().buildIndex != mainMenuScene) {
             canvas.SetActive(false);
-            //winUI.SetActive(false);
-            //gameOverUI.SetActive(false);
-            //creditsUI.SetActive(false);
-            DontDestroyOnLoad(gameObject);
         }
         if (FindObjectOfType<GameManager>() != null &&
             FindObjectOfType<GameManager>().gameObject != gameObject) {
             Destroy(gameObject);
             return;
         }
+        DontDestroyOnLoad(gameObject);
         //DontDestroyOnLoad(gameObject);
         s_instance = this;
         m_gameState = GameState.None;
+        isCoroutineActivated = false;
         
+    }
+
+    private void Start()
+    {
+        currentLevel = "";
+        nextLevel = "LevelOne";
     }
 
     private void Update() {
@@ -44,28 +49,20 @@ public class GameManager : MonoBehaviour
             isCoroutineActivated = true;
             gameFinished();
         }
+        Debug.Log("game state: " + m_gameState);
+    }
+
+    void turnOffUI(){
+        canvas.SetActive(false);
+        winUI.SetActive(false);
+        gameOverUI.SetActive(false);
+        creditsUI.SetActive(false);
     }
 
     public void changeScene() {
-        levelIndex = SceneManager.GetActiveScene().buildIndex;
-        //Debug.Log("Manager ChangeScene");
-
-        if (SceneManager.GetActiveScene().name == "LevelThree") {
-            m_gameState = GameState.GameFinished;
-            Debug.Log("Corutina!!!!");
-            StartCoroutine(openCredits());
-            return;
-        }
-
-        //Debug.Log("Hasta aca lleg?");
-        if (levelIndex < SceneManager.sceneCountInBuildSettings - 1) {
-            //Debug.Log("eeeeee");
-            levelIndex++;
-            SceneManager.LoadScene(levelIndex);
-        }
-        //else {
-        //    m_gameState = GameState.GameFinished;
-        //}
+        Debug.Log("next level: " + nextLevel);
+        SceneManager.LoadScene(nextLevel);
+        currentLevel = nextLevel;
     }
 
     public void changeGameSate(GameState t_newState) {
@@ -79,17 +76,17 @@ public class GameManager : MonoBehaviour
             case GameState.LoadMenu:
                 loadMainMenu();
                 break;
-           // case GameState.StartGame:
-                //startGame();
-                //break;
             case GameState.ChangeLevel:
+                changeScene();
                 break;
             case GameState.Playing:
+                turnOffUI();
                 break;
             case GameState.GameOver:
                 //gameOver();
                 break;
             case GameState.GameFinished:
+                StartCoroutine(openCredits());
                 break;
             default:
                 throw new UnityException("Invalid Game State");
@@ -105,13 +102,14 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator openCredits() {
-        //float waitTimeForCredits = 4f;
         yield return new WaitForSeconds(4f);
         winUI.SetActive(false);
         creditsUI.SetActive(true);
     }
 
     public void loadMainMenu() {
+        Destroy(PlayerManager.instance.gameObject);
+        Destroy(gameObject);
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -137,12 +135,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator slowDownGameOverCanvas() {
         yield return new WaitForSeconds(4f);
-        if( canvas != null )
-        {
             canvas.SetActive(true);
             gameOverUI.SetActive(true);
-        }
-        
     }
 
     public void exitGame() {
@@ -150,6 +144,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void retryLevel() {
+        canvas.SetActive(false);
+        gameOverUI.SetActive(false);
+        changeGameSate(GameState.Playing);
+        PlayerManager.instance.ChangePlayerState(PlayerState.Idle);
+        PlayerManager.instance.respawn();
         levelIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(levelIndex);
     }

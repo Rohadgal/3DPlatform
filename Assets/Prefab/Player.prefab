@@ -576,6 +576,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b6b292869623940aefc34df07c327b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  playerShouders: {fileID: 195587333694285055}
 --- !u!114 &1042500254247787938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 4
-  shoulders: {fileID: 195587333694285055}
+  shoulders: {fileID: 195587333694285040}
 --- !u!1 &1162963220496897817
 GameObject:
   m_ObjectHideFlags: 0

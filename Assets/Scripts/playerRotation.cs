@@ -7,6 +7,11 @@ public class playerRotation : MonoBehaviour
     [SerializeField] private float rotationSpeed = 4f;
     [SerializeField] private Transform shoulders;
 
+    private void Start()
+    {
+        shoulders = PlayerManager.instance.playerShouders;
+    }
+
     void Update()
     {
         float mouseX = Input.GetAxis("Mouse X");
